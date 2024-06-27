@@ -38,7 +38,7 @@ namespace TicketSystemBackend.Controllers
             {
                 Title = ticketDTO.title,
                 Body = ticketDTO.body,
-                UserOpened = ticketDTO.userOpened,
+                UserOpenId= ticketDTO.userOpenedId,
                 IsOpen = true
             };
 

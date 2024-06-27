@@ -38,7 +38,7 @@ namespace TicketSystemBackend.Controllers
             Bookmark newBookmark = new Bookmark
             {
                 TicketId = bookmarkDTO.ticketId,
-                UserBookmarked = bookmarkDTO.userBookmarked,
+                UserBookmarked = bookmarkDTO.userBookmarkedId,
                 Ticket = dbContext.Tickets.Find(bookmarkDTO.ticketId)
             };
 
@@ -79,7 +79,7 @@ namespace TicketSystemBackend.Controllers
             else
             {
                 updatedBookmark.TicketId = bookmarkDTO.ticketId;
-                updatedBookmark.UserBookmarked = bookmarkDTO.userBookmarked;
+                updatedBookmark.UserBookmarked = bookmarkDTO.userBookmarkedId;
                 updatedBookmark.Ticket = dbContext.Tickets.Find(bookmarkDTO.ticketId);
                 dbContext.Bookmarks.Update(updatedBookmark);
                 dbContext.SaveChanges();

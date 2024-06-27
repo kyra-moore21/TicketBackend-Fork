@@ -9,7 +9,9 @@ public partial class Bookmark
 
     public int? TicketId { get; set; }
 
-    public string? UserBookmarked { get; set; }
+    public int? UserBookmarked { get; set; }
 
     public virtual Ticket? Ticket { get; set; }
+
+    public virtual User? UserBookmarkedNavigation { get; set; }
 }

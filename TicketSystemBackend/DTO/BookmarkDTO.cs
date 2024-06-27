@@ -1,4 +1,4 @@
 ﻿namespace TicketSystemBackend.DTO
 {
-    public record BookmarkDTO(int ticketId, string userBookmarked);
+    public record BookmarkDTO(int ticketId, int userBookmarkedId);
 }
