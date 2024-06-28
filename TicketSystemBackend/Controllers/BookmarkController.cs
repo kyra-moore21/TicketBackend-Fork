@@ -31,7 +31,13 @@ namespace TicketSystemBackend.Controllers
                 return Ok(result);
             }
         }
+        [HttpGet("bookmarked")]
+        public IActionResult GetBookmarked(int userId, int ticketId)
+        {
+            Boolean result = dbContext.Bookmarks.Any(b => b.UserBookmarked == userId && b.TicketId == ticketId);
+            return Ok(result);
 
+        }
         [HttpPost()]
         public IActionResult AddBookmark(BookmarkDTO bookmarkDTO)
         {
