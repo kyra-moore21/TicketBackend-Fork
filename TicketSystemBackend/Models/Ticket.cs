@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TicketSystemBackend.Models;
 
@@ -11,17 +12,23 @@ public partial class Ticket
 
     public string? Body { get; set; }
 
+    public int? UserOpened { get; set; }
+
+    public int? UserClosed { get; set; }
+
     public bool? IsOpen { get; set; }
 
     public string? Resolution { get; set; }
 
-    public int? UserOpenId { get; set; }
-
-    public int? UserClosedId { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
 
-    public virtual User? UserClosed { get; set; }
+    [JsonIgnore]
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-    public virtual User? UserOpen { get; set; }
+    [JsonIgnore]
+    public virtual User? UserClosedNavigation { get; set; }
+
+    [JsonIgnore]
+    public virtual User? UserOpenedNavigation { get; set; }
 }

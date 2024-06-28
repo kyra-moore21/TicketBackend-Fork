@@ -31,35 +31,39 @@ public partial class TicketDbContext : DbContext
     {
         modelBuilder.Entity<Bookmark>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bookmark__3214EC07D08620E5");
+            entity.HasKey(e => e.Id).HasName("PK__Bookmark__3214EC07BE0AB5C3");
 
             entity.ToTable("Bookmark");
 
             entity.HasOne(d => d.Ticket).WithMany(p => p.Bookmarks)
                 .HasForeignKey(d => d.TicketId)
-                .HasConstraintName("FK__Bookmark__Ticket__4CA06362");
+                .HasConstraintName("FK__Bookmark__Ticket__08B54D69");
 
             entity.HasOne(d => d.UserBookmarkedNavigation).WithMany(p => p.Bookmarks)
                 .HasForeignKey(d => d.UserBookmarked)
-                .HasConstraintName("FK__Bookmark__UserBo__619B8048");
+                .HasConstraintName("FK__Bookmark__UserBo__09A971A2");
         });
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC0763BEBC44");
+            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC07D0554E6F");
 
             entity.ToTable("Comment");
 
             entity.Property(e => e.Body).HasMaxLength(255);
 
+            entity.HasOne(d => d.Ticket).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.TicketId)
+                .HasConstraintName("FK__Comment__TicketI__114A936A");
+
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Comment__UserId__5EBF139D");
+                .HasConstraintName("FK__Comment__UserId__10566F31");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Ticket__3214EC071F7185CB");
+            entity.HasKey(e => e.Id).HasName("PK__Ticket__3214EC0788C4BD3A");
 
             entity.ToTable("Ticket");
 
@@ -67,18 +71,18 @@ public partial class TicketDbContext : DbContext
             entity.Property(e => e.Resolution).HasMaxLength(255);
             entity.Property(e => e.Title).HasMaxLength(255);
 
-            entity.HasOne(d => d.UserClosed).WithMany(p => p.TicketUserCloseds)
-                .HasForeignKey(d => d.UserClosedId)
-                .HasConstraintName("FK__Ticket__UserClos__60A75C0F");
+            entity.HasOne(d => d.UserClosedNavigation).WithMany(p => p.TicketUserClosedNavigations)
+                .HasForeignKey(d => d.UserClosed)
+                .HasConstraintName("FK__Ticket__UserClos__05D8E0BE");
 
-            entity.HasOne(d => d.UserOpen).WithMany(p => p.TicketUserOpens)
-                .HasForeignKey(d => d.UserOpenId)
-                .HasConstraintName("FK__Ticket__UserOpen__5FB337D6");
+            entity.HasOne(d => d.UserOpenedNavigation).WithMany(p => p.TicketUserOpenedNavigations)
+                .HasForeignKey(d => d.UserOpened)
+                .HasConstraintName("FK__Ticket__UserOpen__04E4BC85");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC07DC9A2139");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC0727E3D5B2");
 
             entity.ToTable("User");
 

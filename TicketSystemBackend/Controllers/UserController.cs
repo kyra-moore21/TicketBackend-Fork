@@ -29,10 +29,18 @@ namespace TicketSystemBackend.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] User user)
         {
-            user.Id = 0;
-            dbContext.Users.Add(user);
-            dbContext.SaveChanges();
-            return Created($"/api/User/{user.Id}" , user);
+
+            if(dbContext.Users.Any(u => u.Email.ToLower() == user.Email.ToLower()))
+            {
+                return Ok(dbContext.Users.FirstOrDefault(u => u.Email.ToLower() == user.Email.ToLower()));
+            }
+            else
+            {
+                user.Id = 0;
+                dbContext.Users.Add(user);
+                dbContext.SaveChanges();
+                return Created($"/api/User/{user.Id}", user);
+            }
         }
         
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TicketSystemBackend.Models;
 
@@ -13,5 +14,6 @@ public partial class Bookmark
 
     public virtual Ticket? Ticket { get; set; }
 
+    [JsonIgnore]
     public virtual User? UserBookmarkedNavigation { get; set; }
 }
