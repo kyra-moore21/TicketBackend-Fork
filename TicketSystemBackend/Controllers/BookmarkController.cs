@@ -18,18 +18,15 @@ namespace TicketSystemBackend.Controllers
             return Ok(dbContext.Bookmarks.Include(b => b.Ticket).ToList());
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetBookmarkById(int id)
+        [HttpGet("getById")]
+        public async Task<ActionResult<Bookmark>> GetBookmarkById(int userId, int ticketId)
         {
-            Bookmark result = dbContext.Bookmarks.Include(b => b.Ticket).FirstOrDefault(b => b.Id == id);
-            if (result == null)
+            Bookmark result = await dbContext.Bookmarks.FirstOrDefaultAsync(b => b.UserBookmarked == userId && b.TicketId == ticketId);
+            if(result == null)
             {
                 return NotFound();
             }
-            else
-            {
-                return Ok(result);
-            }
+            return Ok(result.Id);
         }
         [HttpGet("bookmarked")]
         public IActionResult GetBookmarked(int userId, int ticketId)
@@ -38,6 +35,7 @@ namespace TicketSystemBackend.Controllers
             return Ok(result);
 
         }
+        
         [HttpPost()]
         public IActionResult AddBookmark(BookmarkDTO bookmarkDTO)
         {
